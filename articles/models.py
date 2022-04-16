@@ -10,7 +10,7 @@ from django.forms import CharField
 
 class Profile(models.Model):
    name= models.CharField(max_length=200)
-   id2=models.IntegerField()
+   id2=models.IntegerField(null=True)
    age= models.IntegerField()
    occupation=models.CharField(max_length=100)
    place=models.CharField(max_length=20)

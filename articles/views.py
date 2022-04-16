@@ -11,11 +11,21 @@ def register_view(request):
     form =form=UserCreationForm(request.POST or None)
     if request.method =='POST':
         if all([form.is_valid(), formset.is_valid()]):
-            
+            formset.cleaned_data
             usr_obj = form.save()
-            profile_obj=formset.save()
+           # profile_obj=formset()
+            t=Profile(name=formset.cleaned_data['name'],
+            id2=usr_obj.id,age=formset.cleaned_data['age'],
+            occupation=formset.cleaned_data['occupation'],
+            place=formset.cleaned_data['place'],
+            joining_date=formset.cleaned_data['joining_date'],
+            email_id=formset.cleaned_data['email_id'],
+            profile_Main_Img=formset.cleaned_data['profile_Main_Img'])
+            t.save()
             return redirect('/')
+            
     else:
+       # Profile.id2=usr_obj.id
         formset= NewProfile()
         form=UserCreationForm()
     context={
@@ -49,15 +59,10 @@ def edit(request,id):
 
 def display(request, id):
     obj= Profile.objects.get(id=id)
+    ob=User.objects.get(id=obj.id2)
+    print(ob)
     context={ "obj": obj,
-        " name": obj.name,
-        "username":obj.id2,
-     "id":obj.id,
-     "age": obj.age,
-     "occupation":obj.occupation,
-     "place": obj.place,
-     "joining_date":obj.joining_date,
-     "email-id":obj.email_id}
+              "ob":ob}
     return render(request,'display.html',context)
 
 def login_view(request):
