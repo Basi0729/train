@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
+    
+
     <head>
       <meta charset="UTF-8">
       <title>Profile_create</title>
     </head>
     
     
-    <body><center>
+    <body>
+      
+      <center>
        <h1>Create Profile...</h1>
        <h2>Enter Details</h2>
       </center>
-         <br><br>
+         
+      <br><br>
+      
       <div id ="errors" style="color:red;text-align:center"></div>
+      
       <div id ="error" style="color:red;text-align:center"></div>
+      
       <div id ="err" style="color:red;text-align:center"></div>
+      
       <div id ="eror" style="color:red;text-align:center"></div>
+     
       <table>
             <tr>
                <form  action="" method = "post" 
@@ -30,13 +40,21 @@
     <script >
       document.getElementById('id_name').onchange=function() { validate()};
       document.getElementById('id_joining_date').onchange=function() { validate()};
+      
       document.getElementById('id_password2').onchange=function() { validate()};
       document.getElementById('id_email_id').onchange=function() { validate()};
 
        function validate() 
        {  
+        var pw1=document.getElementById('id_password1').value;
+        
+        var pw2=document.getElementById('id_password2').value;
+        
         var mailformat=(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+       
         var dateformat = /^\d{4}-\d{2}-\d{2}$/;
+        
+        
         if(document.getElementById("id_name").value.length<3)
             { 
               document.getElementById('errors').innerHTML="Enter Valid Name!!"  ;
@@ -47,7 +65,10 @@
               document.getElementById('errors').innerHTML="";
             }
     
-       if(document.getElementById("id_joining_date").value.match(dateformat))
+       
+       
+       
+        if(document.getElementById("id_joining_date").value.match(dateformat))
          {
           document.getElementById('error').innerHTML=" ";
          }
@@ -55,7 +76,10 @@
         {
         document.getElementById('error').innerHTML="Enter Valid date in DD-MM-YYY Format!!";  
         }
-        if( document.getElementById('id_password1')!=document.getElementById('id_password2'))
+        
+        
+        
+      if(pw1!=pw2)
          {
           document.getElementById('err').innerHTML="Password not Matching";
          }
@@ -64,6 +88,8 @@
         document.getElementById('err').innerHTML=" ";  
         }
        
+      
+      
         if(document.getElementById('id_email_id').value.match(mailformat))
         {
           document.getElementById('eror').innerHTML=""
