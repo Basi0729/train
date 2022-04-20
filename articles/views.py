@@ -8,12 +8,11 @@ from django.contrib.auth.models import User
 
 def register_view(request):
     formset=NewProfile(request.POST, request.FILES)
-    form =form=UserCreationForm(request.POST or None)
+    form =form= NewUserForm(request.POST or None)
     if request.method =='POST':
         if all([form.is_valid(), formset.is_valid()]):
             formset.cleaned_data
             usr_obj = form.save()
-           # profile_obj=formset()
             t=Profile(name=formset.cleaned_data['name'],
             id2=usr_obj.id,age=formset.cleaned_data['age'],
             occupation=formset.cleaned_data['occupation'],
@@ -25,11 +24,11 @@ def register_view(request):
             return redirect('/')
             
     else:
-       # Profile.id2=usr_obj.id
         formset= NewProfile()
         form=UserCreationForm()
     context={
         'form': form,
+        'id':id,
         'formset': formset,
 
     }    
@@ -39,9 +38,10 @@ def register_view(request):
 
 def delete(request, id):
     obj= Profile.objects.get(id=id)
-    
+    ob=User.objects.get(id=obj.id2)
 
     obj.delete()
+    ob.delete()
     return redirect('/')
 
 def edit(request,id):
@@ -73,15 +73,15 @@ def login_view(request):
        password=password)
        if user is None:
            context={"error":"Invalid Username or Password"}
-           return render(request, "accounts/login.html",
+           return render(request, "login.html",
            context)
        login(request,user)
        return redirect('/')
-    return render(request, "accounts/login.html")
+    return render(request, "login.html")
     
 
 def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect("/login/")
-    return render(request, "accounts/logout.html",{})
+    return render(request, "logout.html",{})

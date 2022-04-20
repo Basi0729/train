@@ -4,22 +4,87 @@
       <meta charset="UTF-8">
       <title>Profile_create</title>
     </head>
-    <body>
+    
+    
+    <body><center>
        <h1>Create Profile...</h1>
-       <h2>Enter values</h2>
-
+       <h2>Enter Details</h2>
+      </center>
+         <br><br>
+      <div id ="errors" style="color:red;text-align:center"></div>
+      <div id ="error" style="color:red;text-align:center"></div>
+      <div id ="err" style="color:red;text-align:center"></div>
+      <div id ="eror" style="color:red;text-align:center"></div>
       <table>
-        <tr>
-      <form method = "post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {{formset.as_p}}
-      </tr>
+            <tr>
+               <form  action="" method = "post" 
+                 enctype="multipart/form-data"  id="forms_id" onchange="validate()">
+
+                   {% csrf_token %}
+                   {{ form }}
+                   {{formset}}
+        
+          </tr>
     </table>
+        
+    <script >
+      document.getElementById('id_name').onchange=function() { validate()};
+      document.getElementById('id_joining_date').onchange=function() { validate()};
+      document.getElementById('id_password2').onchange=function() { validate()};
+      document.getElementById('id_email_id').onchange=function() { validate()};
+
+       function validate() 
+       {  
+        var mailformat=(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+        var dateformat =( /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/);
+        if(document.getElementById("id_name").value.length<3)
+            { 
+              document.getElementById('errors').innerHTML="Enter Valid Name!!"  ;
+          
+            }
+        else
+            {
+              document.getElementById('errors').innerHTML="";
+            }
+    
+       if(document.getElementById("id_joining_date").value.match(dateformat))
+         {
+          document.getElementById('error').innerHTML=" ";
+         }
+        else
+        {
+        document.getElementById('error').innerHTML="Enter Valid date in DD-MM-YYY Format!!";  
+        }
+        if( document.getElementById('id_password1')!=document.getElementById('id_password2'))
+         {
+          document.getElementById('err').innerHTML="Password not Matching";
+         }
+        else
+        {
+        document.getElementById('err').innerHTML=" ";  
+        }
+       
+        if(document.getElementById('id_email_id').value.match(mailformat))
+        {
+          document.getElementById('eror').innerHTML=""
+        }
+        else{
+          document.getElementById('eror').innerHTML="Enter Valid Email-ID"
+        }
+
+      };
+       </script>
+        
+        
         <br><br>
-        <input type="submit" value="Submit and Upload">
-     </form>
+           
+           </div>
+                 <input type="submit" value="Submit and Upload"  >
+  </form>
    
-      <br> <br> <a href="/">Home</a>
+      <br> <br> 
+      
+     <center> <a href="/">HOME</a></center>
+
     </body>
 </html>
